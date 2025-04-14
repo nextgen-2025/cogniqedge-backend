@@ -23,9 +23,26 @@ app.post("/send-email", async (req, res) => {
     from: `"${name}" <${email}>`,  // Shows user's name but uses your authenticated email
     replyTo: email,  // This ensures replies go to the user
     to: "saksamgupta4@gmail.com", // Your business email where you receive messages
-    subject: "New Submission Form",
-    text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nDesignation: ${subject}\nMessage: ${message}`,
+    subject: "📩 New Form Submission Received",
+    text: `
+  🌟 You have received a new form submission! Below are the details:
+  
+  👤 Name:        ${name}
+  📧 Email:       ${email}
+  📱 Phone:       ${phone}
+  🏢 Company:     ${company}
+  💼 Designation: ${subject}
+  📝 Message:
+  ${message}
+  
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📅 Submitted on: ${new Date().toLocaleString()}
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  
+  Please respond promptly.
+  `,
   };
+  
 
   try {
     await transporter.sendMail(mailOptions);
